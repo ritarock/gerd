@@ -1,17 +1,5 @@
 erDiagram
 
-books_categories {
-	int book_id
-	int category_id
-}
-
-
-categories {
-	int id
-	string category
-}
-
-
 authors {
 	int id
 	string name
@@ -26,8 +14,20 @@ books {
 
 
 books_authors {
-	int book_id
 	int author_id
+	int book_id
+}
+
+
+books_categories {
+	int category_id
+	int book_id
+}
+
+
+categories {
+	int id
+	string category
 }
 
 authors ||--|{ books_authors: ""
