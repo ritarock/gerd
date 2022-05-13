@@ -16,7 +16,7 @@ func Start() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("index.tmpl"))
+	tmpl := template.Must(template.ParseFiles("internal/server/index.tmpl"))
 
 	value, err := loadMd()
 	if err != nil {
