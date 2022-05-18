@@ -12,11 +12,12 @@ var mysqlConfig = mysql.Config{}
 
 func Connection(user, passwd, addr, dbName string) (*sqlx.DB, error) {
 	mysqlConfig = mysql.Config{
-		User:   user,
-		Passwd: passwd,
-		Net:    "tcp",
-		Addr:   addr,
-		DBName: dbName,
+		User:                 user,
+		Passwd:               passwd,
+		Net:                  "tcp",
+		Addr:                 addr,
+		DBName:               dbName,
+		AllowNativePasswords: true,
 	}
 	client, err := sqlx.Connect("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
