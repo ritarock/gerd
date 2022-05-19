@@ -92,4 +92,8 @@ func init() {
 		"",
 		"connection db name (required)",
 	)
+	rootCmd.MarkFlagRequired("user")
+	rootCmd.MarkFlagRequired("password")
+	rootCmd.MarkFlagRequired("address")
+	rootCmd.MarkFlagRequired("db")
 }
