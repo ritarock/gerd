@@ -53,7 +53,7 @@ func (d *dbx) GetDescribe(tableName model.Table) (model.Column, error) {
 	column := make(model.Column)
 	for _, v := range metaColumns {
 		key := model.ColumnKey(v.Field.String)
-		value := model.ColumnValue(v.Field.String)
+		value := model.ColumnValue(v.Type.String)
 		column[key] = value
 	}
 	return column, nil

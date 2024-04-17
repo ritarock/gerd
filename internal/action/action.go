@@ -5,6 +5,8 @@ import (
 	"github.com/ritarock/gerd/internal/mermaid"
 )
 
+const FILE_NAME = "mermaid.md"
+
 func Run(db, address, user, password string) error {
 	dbx := database.NewDbx()
 	if err := dbx.Connect(db, address, user, password); err != nil {
@@ -16,13 +18,13 @@ func Run(db, address, user, password string) error {
 		return err
 	}
 
-	mermaid.Create()
+	mermaid.Create(FILE_NAME)
 	for _, table := range tables {
 		column, err := dbx.GetDescribe(table)
 		if err != nil {
 			return err
 		}
-		if err := mermaid.CreateTable(table, column); err != nil {
+		if err := mermaid.CreateTable(table, column, FILE_NAME); err != nil {
 			return err
 		}
 	}
@@ -36,7 +38,7 @@ func Run(db, address, user, password string) error {
 			continue
 		}
 		for _, reference := range references {
-			if err := mermaid.CreateReference(table, reference); err != nil {
+			if err := mermaid.CreateReference(table, reference, FILE_NAME); err != nil {
 				return err
 			}
 		}

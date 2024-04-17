@@ -1,33 +1,33 @@
 erDiagram
 
 authors {
-	id id
-	name name
+	int id
+	varchar(45) name
 }
 
 
 book_authors {
-	book_id book_id
-	author_id author_id
+	int book_id
+	int author_id
 }
 
 
 book_categories {
-	book_id book_id
-	category_id category_id
+	int book_id
+	int category_id
 }
 
 
 books {
-	id id
-	title title
-	published_date published_date
+	int id
+	varchar(60) title
+	date published_date
 }
 
 
 categories {
-	id id
-	category category
+	int id
+	varchar(60) category
 }
 
 authors ||--|{ book_authors: ""
