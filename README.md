@@ -9,7 +9,7 @@ $ make install
 
 ## Usage
 ```shell
-$ bin/gerd -h
+$ gerd -h
 make entity relationship diagram
 
 Usage:
@@ -27,7 +27,7 @@ Flags:
   -p, --password string   database password (required)
   -u, --user string       database user name (required)
 
-$ bin/gerd server -h
+$ gerd server -h
 show mermaid file.
 access to http://localhost:8080
 
