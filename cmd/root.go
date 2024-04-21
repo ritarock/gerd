@@ -3,9 +3,13 @@ package cmd
 import (
 	"os"
 
-	"github.com/ritarock/gerd/internal/action"
+	"github.com/ritarock/gerd/internal/mermaid"
 	"github.com/spf13/cobra"
+
+	database "github.com/ritarock/gerd/internal/db"
 )
+
+const FILE_NAME = "mermaid.md"
 
 var rootCmd = &cobra.Command{
 	Use:   "gerd",
@@ -16,7 +20,43 @@ var rootCmd = &cobra.Command{
 		user, _ := cmd.Flags().GetString("user")
 		password, _ := cmd.Flags().GetString("password")
 
-		return action.Run(db, address, user, password)
+		dbx := database.NewDbx()
+		if err := dbx.Connect(db, address, user, password); err != nil {
+			return err
+		}
+
+		tables, err := dbx.GetTables()
+		if err != nil {
+			return err
+		}
+
+		mermaid.Create(FILE_NAME)
+		for _, table := range tables {
+			column, err := dbx.GetDescribe(table)
+			if err != nil {
+				return err
+			}
+			if err := mermaid.CreateTable(table, column, FILE_NAME); err != nil {
+				return err
+			}
+		}
+
+		for _, table := range tables {
+			references, err := dbx.GetReferences(table)
+			if err != nil {
+				return err
+			}
+			if len(references) == 0 {
+				continue
+			}
+			for _, reference := range references {
+				if err := mermaid.CreateReference(table, reference, FILE_NAME); err != nil {
+					return err
+				}
+			}
+		}
+
+		return nil
 	},
 }
 
